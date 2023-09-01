@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Clique</title>
+<style>
+body {
+    background-color: black;
+    color: green;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    text-align: center;
+}
+
+h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+button {
+    font-size: 16px;
+    padding: 10px 20px;
+    background-color: green;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: darkgreen;
+}
+
+p {
+    font-size: 16px;
+}
+
+#clickCount {
+    font-weight: bold;
+}
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>Je balance quelque chose aux 100 clics</h1>
+
+    <button id="clickButton" onclick="handleClick()">Cliquez ici</button>
+
+    <p>Nombre de clics : <span id="clickCount">0</span></p>
+</div>
+
+<script>
+// Vérifier si le cookie d'état de clic existe
+var clickState = getCookie("clickState");
+
+if (clickState === null) {
+    // Si le cookie n'existe pas, initialiser le compteur à 0
+    var counter = 0;
+} else {
+    // Si le cookie existe, récupérer la valeur du compteur à partir du cookie
+    var counter = parseInt(clickState);
+}
+
+// Mettre à jour le texte du compteur
+document.getElementById("clickCount").textContent = counter.toString();
+
+// Réinitialiser le compteur toutes les cinq heures
+setInterval(function() {
+    counter = 0;
+    document.getElementById("clickCount").textContent = counter.toString();
+    setCookie("clickState", counter.toString(), 365);
+}, 5 * 60 * 60 * 1000); // 5 heures en millisecondes
+
+function handleClick() {
+    if (getCookie("hasClicked") === null) {
+        // Si le cookie "hasClicked" n'existe pas, incrémenter le compteur de 1
+        counter++;
+        // Mettre à jour le texte du compteur
+        document.getElementById("clickCount").textContent = counter.toString();
+        // Définir le cookie "hasClicked" pour indiquer que l'utilisateur a cliqué
+        setCookie("hasClicked", "true", 365);
+        // Définir le cookie d'état de clic pour enregistrer la valeur du compteur
+        setCookie("clickState", counter.toString(), 365);
+    } else {
+        // Si le cookie "hasClicked" existe, l'utilisateur a déjà cliqué
+        alert("Vous avez déjà cliqué !");
+    }
+}
+// Fonction pour récupérer la valeur d'un cookie
+function getCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) === ' ') c = c.substring(1);
+        if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+    }
+    return null;
+}
+</script>
+</body>
+</html>
+
+
+
+
+

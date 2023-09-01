@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Votre Site Privé</title>
+<!-- Vos autres balises <head> ici -->
+</head>
+<body>
+<div class="message">
+<p>Bonjour, comme vous avez pu le constater, ce site est privé. Si vous souhaitez obtenir le code, envoyez "CODE" à cette adresse...</p>
+<p>le.veilleur.du.campus@protonmail.com</p>
+<p>Ou sinon, demandez le code à quelqu'un qui le possède déjà.</p>
+</div>
+
+<div class="code">
+<!-- Votre espace code ici -->
+</div>
+
+<!-- Vos autres balises <script> ici -->
+</body>
+</html>
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+background-color: black;
+color: green;
+font-family: monospace;
+}
+
+.code-input {
+display: flex;
+justify-content: center;
+align-items: center;
+height: 100vh;
+}
+
+.code-input input {
+border: none;
+background-color: black;
+color: green;
+font-size: 16px;
+font-family: monospace;
+letter-spacing: 4px;
+width: 200px;
+text-align: center;
+caret-color: transparent;
+animation: blink-animation 1s infinite;
+}
+
+.code-input button {
+background-color: green;
+color: black;
+border: none;
+padding: 10px 20px;
+font-size: 16px;
+font-weight: bold;
+cursor: pointer;
+}
+
+.error-overlay {
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background-color: rgba(0, 0, 0, 0.8);
+display: none;
+justify-content: center;
+align-items: center;
+flex-direction: column;
+z-index: 9999;
+}
+
+.error-message {
+color: red;
+text-align: center;
+margin-top: 20px;
+font-size: 24px;
+}
+
+.blinking-tirets {
+color: green;
+font-size: 24px;
+animation: blink-animation 1s infinite;
+}
+
+@keyframes blink-animation {
+0% { opacity: 1; }
+50% { opacity: 0; }
+100% { opacity: 1; }
+}
+</style>
+</head>
+<body>
+<div class="code-input">
+<input type="text" id="codeInput" maxlength="5" placeholder="Entrez le code">
+<button id="validateButton">Valider</button>
+</div>
+
+<div id="errorOverlay" class="error-overlay">
+<div class="error-message">Je ne veux pas d'intrus.</div>
+</div>
+
+<script>
+const codeInput = document.getElementById('codeInput');
+const validateButton = document.getElementById('validateButton');
+const errorOverlay = document.getElementById('errorOverlay');
+
+validateButton.addEventListener('click', function() {
+const enteredCode = codeInput.value;
+
+if (enteredCode === '82605') {
+window.location.href = 'options.html';
+} else {
+errorOverlay.style.display = 'flex';
+codeInput.value = '';
+setTimeout(function() {
+errorOverlay.style.display = 'none';
+}, 2000);
+}
+});
+</script>
+</body>
+</html>
+
+
+
